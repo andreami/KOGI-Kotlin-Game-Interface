@@ -8,9 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.utils.viewport.FitViewport
-import com.mygdx.game.ecs.system.PlayerAnimationSystem
-import com.mygdx.game.ecs.system.PlayerInputSystem
-import com.mygdx.game.ecs.system.RenderSystem
+import com.mygdx.game.ecs.system.*
 import com.mygdx.game.screen.FirstScreen
 import com.mygdx.game.screen.GameScreen
 import ktx.app.KtxGame
@@ -18,23 +16,27 @@ import ktx.log.debug
 import ktx.log.logger
 
 private val LOG = logger<MyKtxGame>()
+const val V_WIDTH_PIXELS = 135
+const val V_HEIGHT_PIXELS = 240
 const val UNIT_SCALE = 1 / 8f
 
 class MyKtxGame : KtxGame<GameScreen>() {
 
     val playerAtlas by lazy { TextureAtlas(Gdx.files.internal("player.atlas")) }
 
-    val gameViewport = FitViewport(640f, 480f)
+    val gameViewport = FitViewport(V_WIDTH_PIXELS.toFloat(), V_HEIGHT_PIXELS.toFloat())
     val batch: Batch by lazy { SpriteBatch() }
     val engine: Engine by lazy {
         PooledEngine().apply {
             addSystem(PlayerInputSystem(gameViewport))
+            addSystem(MoveSystem())
             addSystem(PlayerAnimationSystem(
                     playerAtlas.findRegion("adventurer-idle-00"),
                     playerAtlas.findRegion("adventurer-crouch-00"),
                     playerAtlas.findRegion("adventurer-idle-00")
             ))
             addSystem(RenderSystem(batch, gameViewport))
+            addSystem(RemoveSystem())
         }
     }
 

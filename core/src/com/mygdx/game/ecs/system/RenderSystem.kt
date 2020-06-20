@@ -9,6 +9,7 @@ import com.mygdx.game.ecs.component.TransformComponent
 import ktx.ashley.allOf
 import ktx.ashley.get
 import ktx.graphics.use
+import ktx.log.debug
 import ktx.log.error
 import ktx.log.logger
 
@@ -40,6 +41,8 @@ class RenderSystem(
             return LOG.error { "Entity |entity| has no texture for rendering. entity=$entity" }
 
         graphic.sprite.run {
+            rotation = transform.rotationDeg
+            setBounds(transform.position.x, transform.position.y, transform.size.x, transform.size.y)
             draw(batch)
         }
     }
