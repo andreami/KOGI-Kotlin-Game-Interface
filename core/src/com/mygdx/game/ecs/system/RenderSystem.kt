@@ -4,7 +4,7 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.systems.SortedIteratingSystem
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.utils.viewport.Viewport
-import com.mygdx.game.ecs.component.GraphicsComponent
+import com.mygdx.game.ecs.component.GraphicComponent
 import com.mygdx.game.ecs.component.TransformComponent
 import ktx.ashley.allOf
 import ktx.ashley.get
@@ -18,7 +18,7 @@ class RenderSystem(
         private val batch: Batch,
         private val gameViewport: Viewport
 ) : SortedIteratingSystem(
-        allOf(GraphicsComponent::class, TransformComponent::class).get(),
+        allOf(GraphicComponent::class, TransformComponent::class).get(),
         compareBy { entity -> entity[TransformComponent.mapper] }
 ) {
 
@@ -31,8 +31,9 @@ class RenderSystem(
     }
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
-        requireNotNull(entity[TransformComponent.mapper]) { "Entity |entity| must have TransformerComponent. entity=$entity" }
-        val graphic = entity[GraphicsComponent.mapper]
+        val transform = entity[TransformComponent.mapper]
+        requireNotNull(transform) { "Entity |entity| must have TransformerComponent. entity=$entity" }
+        val graphic = entity[GraphicComponent.mapper]
         requireNotNull(graphic) { "Entity |entity| must have GraphicsComponent. entity=$entity" }
 
         if (graphic.sprite.texture == null)
