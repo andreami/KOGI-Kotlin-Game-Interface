@@ -16,13 +16,14 @@ import ktx.log.debug
 import ktx.log.logger
 
 private val LOG = logger<MyKtxGame>()
-const val V_WIDTH_PIXELS = 135
-const val V_HEIGHT_PIXELS = 240
+const val V_WIDTH_PIXELS = 360
+const val V_HEIGHT_PIXELS = 640
 const val UNIT_SCALE = 1 / 8f
 
 class MyKtxGame : KtxGame<GameScreen>() {
 
     val playerAtlas by lazy { TextureAtlas(Gdx.files.internal("player.atlas")) }
+    val graphicAtlas by lazy { TextureAtlas(Gdx.files.internal("graphic.atlas")) }
 
     val gameViewport = FitViewport(V_WIDTH_PIXELS.toFloat(), V_HEIGHT_PIXELS.toFloat())
     val batch: Batch by lazy { SpriteBatch() }
@@ -35,6 +36,7 @@ class MyKtxGame : KtxGame<GameScreen>() {
                     playerAtlas.findRegion("adventurer-crouch-00"),
                     playerAtlas.findRegion("adventurer-idle-00")
             ))
+            addSystem(AnimationSystem(graphicAtlas))
             addSystem(RenderSystem(batch, gameViewport))
             addSystem(RemoveSystem())
         }
@@ -51,6 +53,7 @@ class MyKtxGame : KtxGame<GameScreen>() {
         super.dispose()
         LOG.debug { "Sprites in batch: ${(batch as SpriteBatch).maxSpritesInBatch}" }
         batch.dispose()
+        graphicAtlas.dispose()
         playerAtlas.dispose()
     }
 

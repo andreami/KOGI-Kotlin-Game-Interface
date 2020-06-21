@@ -9,7 +9,6 @@ import com.mygdx.game.ecs.component.TransformComponent
 import ktx.ashley.allOf
 import ktx.ashley.get
 import ktx.graphics.use
-import ktx.log.debug
 import ktx.log.error
 import ktx.log.logger
 
@@ -33,12 +32,12 @@ class RenderSystem(
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
         val transform = entity[TransformComponent.mapper]
-        requireNotNull(transform) { "Entity |entity| must have TransformerComponent. entity=$entity" }
+        requireNotNull(transform) { "Entity $entity must have TransformerComponent." }
         val graphic = entity[GraphicComponent.mapper]
-        requireNotNull(graphic) { "Entity |entity| must have GraphicsComponent. entity=$entity" }
+        requireNotNull(graphic) { "Entity $entity must have GraphicsComponent." }
 
         if (graphic.sprite.texture == null)
-            return LOG.error { "Entity |entity| has no texture for rendering. entity=$entity" }
+            return LOG.error { "Entity $entity has no texture for rendering." }
 
         graphic.sprite.run {
             rotation = transform.rotationDeg

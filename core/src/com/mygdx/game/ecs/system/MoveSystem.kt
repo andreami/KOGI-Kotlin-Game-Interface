@@ -3,12 +3,16 @@ package com.mygdx.game.ecs.system
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.math.MathUtils
+import com.mygdx.game.MyKtxGame
+import com.mygdx.game.UNIT_SCALE
 import com.mygdx.game.V_HEIGHT_PIXELS
 import com.mygdx.game.V_WIDTH_PIXELS
 import com.mygdx.game.ecs.component.*
 import ktx.ashley.allOf
 import ktx.ashley.exclude
 import ktx.ashley.get
+import ktx.log.debug
+import ktx.log.logger
 import kotlin.math.max
 import kotlin.math.min
 
@@ -68,7 +72,6 @@ class MoveSystem(
                 -MAX_VER_NEG_PLAYER_SPEED,
                 MAX_VER_POS_PLAYER_SPEED
         )
-
         moveEntity(transform, move, deltaTime)
     }
 
@@ -87,5 +90,6 @@ class MoveSystem(
                 1f,
                 V_HEIGHT_PIXELS + 1f - transform.size.y
         )
+
     }
 }
