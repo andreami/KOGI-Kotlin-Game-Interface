@@ -1,0 +1,69 @@
+
+graphic.png
+size: 512,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+adventurer-attack1
+  rotate: false
+  xy: 158, 2
+  size: 50, 37
+  orig: 50, 37
+  offset: 0, 0
+  index: 0
+adventurer-attack1
+  rotate: false
+  xy: 210, 2
+  size: 50, 37
+  orig: 50, 37
+  offset: 0, 0
+  index: 1
+adventurer-attack1
+  rotate: false
+  xy: 262, 2
+  size: 50, 37
+  orig: 50, 37
+  offset: 0, 0
+  index: 2
+adventurer-attack1
+  rotate: false
+  xy: 314, 2
+  size: 50, 37
+  orig: 50, 37
+  offset: 0, 0
+  index: 3
+adventurer-attack1
+  rotate: false
+  xy: 366, 2
+  size: 50, 37
+  orig: 50, 37
+  offset: 0, 0
+  index: 4
+adventurer-idle
+  rotate: false
+  xy: 2, 2
+  size: 50, 37
+  orig: 50, 37
+  offset: 0, 0
+  index: 3
+adventurer-idle
+  rotate: false
+  xy: 54, 2
+  size: 50, 37
+  orig: 50, 37
+  offset: 0, 0
+  index: 2
+adventurer-idle
+  rotate: false
+  xy: 106, 2
+  size: 50, 37
+  orig: 50, 37
+  offset: 0, 0
+  index: 0
+adventurer-idle
+  rotate: false
+  xy: 418, 2
+  size: 50, 37
+  orig: 50, 37
+  offset: 0, 0
+  index: 1

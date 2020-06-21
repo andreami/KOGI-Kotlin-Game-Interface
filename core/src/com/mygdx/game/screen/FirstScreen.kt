@@ -1,51 +1,48 @@
 package com.mygdx.game.screen
 
-import com.badlogic.ashley.core.PooledEngine
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.BitmapFont
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.mygdx.game.ecs.component.GraphicsComponent
-import com.mygdx.game.ecs.component.TransformComponent
-import ktx.app.KtxScreen
+import com.mygdx.game.MyKtxGame
+import com.mygdx.game.UNIT_SCALE
+import com.mygdx.game.ecs.component.*
 import ktx.ashley.entity
-import ktx.ashley.get
 import ktx.ashley.with
-import ktx.graphics.use
 
-class FirstScreen : KtxScreen {
+class FirstScreen(game: MyKtxGame) : GameScreen(game) {
 
-    private val font = BitmapFont()
-    private val playerTexture = Texture(Gdx.files.internal("badlogic.jpg"))
-    private val engine = PooledEngine()
-    private val player = engine.entity {
+    private val player = game.engine.entity {
         with<TransformComponent> {
-            position.set(10f, 10f, 0f)
+            setInitialPosition(50f, 200f, 0f)
+            size.set(50f*2, 37f*2)
         }
-        with<GraphicsComponent> {
-            sprite.run {
-                setRegion(playerTexture)
-                setSize(texture.width.toFloat(), texture.height.toFloat())
-            }
-        }
+        with<MoveComponent>()
+        with<GraphicComponent>()
+        with<PlayerComponent>()
+        with<FacingComponent>()
     }
 
-    private val batch = SpriteBatch().apply {
-        color = Color.WHITE
+
+    private val player2 = game.engine.entity {
+        with<TransformComponent> {
+            setInitialPosition(150f, 200f, 0f)
+            size.set(50f*2, 37f*2)
+        }
+        with<AnimationComponent> { type = AnimationType.IDLE }
+        with<GraphicComponent>()
+    }
+
+
+    private val player3 = game.engine.entity {
+        with<TransformComponent> {
+            setInitialPosition(300f, 200f, 0f)
+            size.set(50f*2, 37f*2)
+        }
+        with<AnimationComponent> { type = AnimationType.ATTACK1 }
+        with<GraphicComponent>()
     }
 
     override fun render(delta: Float) {
         engine.update(delta)
-        batch.use {
-            font.draw(it, "Hello Kotlin!", 100f, 100f)
-            player[GraphicsComponent.mapper]?.sprite?.draw(it)
-        }
     }
 
     override fun dispose() {
-        font.dispose()
-        playerTexture.dispose()
-        batch.dispose()
     }
 }
