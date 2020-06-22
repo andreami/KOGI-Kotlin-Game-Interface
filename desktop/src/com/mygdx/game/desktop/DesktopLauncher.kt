@@ -9,7 +9,7 @@ fun main() {
             MyKtxGame(),
             Lwjgl3ApplicationConfiguration().apply {
                 setTitle("MyKtxGame")
-                setWindowSizeLimits(360, 640, -1, -1)
-                setWindowedMode(360, 640)
+                setWindowSizeLimits(640, 480, -1, -1)
+                setWindowedMode(640, 480)
             })
 }

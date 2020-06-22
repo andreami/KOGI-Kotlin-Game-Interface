@@ -1,1 +1,1 @@
-# libKtx-game
+# KOGI - Kotlin Game Interface

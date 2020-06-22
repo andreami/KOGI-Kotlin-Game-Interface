@@ -9,16 +9,6 @@ import ktx.ashley.mapperFor
 
 private const val DEFAULT_FRAME_DURATION = 1 / 8f
 
-enum class AnimationType(
-        val atlasKey: String,
-        val playMode: Animation.PlayMode = Animation.PlayMode.LOOP,
-        val speedRate: Float = 1f
-) {
-    NONE(""),
-    IDLE("adventurer-idle", Animation.PlayMode.LOOP, 1f),
-    ATTACK1("adventurer-attack1", Animation.PlayMode.LOOP, 1f)
-}
-
 class Animation2D(
         val type: AnimationType,
         keyFrames: Array<out TextureRegion>,
@@ -39,4 +29,14 @@ class AnimationComponent : Component, Pool.Poolable {
     companion object {
         val mapper = mapperFor<AnimationComponent>()
     }
+}
+
+enum class AnimationType(
+        val atlasKey: String,
+        val playMode: Animation.PlayMode = Animation.PlayMode.LOOP,
+        val speedRate: Float = 1f
+) {
+    NONE(""),
+    IDLE("adventurer-idle", Animation.PlayMode.LOOP, 1f),
+    ATTACK1("adventurer-attack1", Animation.PlayMode.LOOP, 1f)
 }

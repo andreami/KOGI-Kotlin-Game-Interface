@@ -5,8 +5,8 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.EntityListener
 import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.graphics.g2d.TextureRegion
-import com.mygdx.game.ecs.component.FacingComponent
-import com.mygdx.game.ecs.component.FacingDirection
+import com.mygdx.game.ecs.component.DirectionComponent
+import com.mygdx.game.ecs.component.Direction
 import com.mygdx.game.ecs.component.GraphicComponent
 import com.mygdx.game.ecs.component.PlayerComponent
 import ktx.ashley.allOf
@@ -16,7 +16,7 @@ class PlayerAnimationSystem(
         private val defaultRegion: TextureRegion,
         private val leftRegion: TextureRegion,
         private val rightRegion: TextureRegion
-) : IteratingSystem(allOf(PlayerComponent::class, FacingComponent::class, GraphicComponent::class).get()),
+) : IteratingSystem(allOf(PlayerComponent::class, DirectionComponent::class, GraphicComponent::class).get()),
         EntityListener {
 
     override fun addedToEngine(engine: Engine) {
@@ -36,7 +36,7 @@ class PlayerAnimationSystem(
     }
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
-        val facing = entity[FacingComponent.mapper]
+        val facing = entity[DirectionComponent.mapper]
         requireNotNull(facing) { "Entity |entity| must have FacingComponent. entity=$entity" }
         val graphic = entity[GraphicComponent.mapper]
         requireNotNull(graphic) { "Entity |entity| must have GraphicsComponent. entity=$entity" }
@@ -47,8 +47,10 @@ class PlayerAnimationSystem(
 
         facing.lastDirection = facing.direction
         val region = when (facing.direction) {
-            FacingDirection.LEFT -> leftRegion
-            FacingDirection.RIGHT -> rightRegion
+            Pair(Direction.LEFT, Direction.DOWN) -> leftRegion
+            Pair(Direction.LEFT, Direction.UP) -> leftRegion
+            Pair(Direction.RIGHT, Direction.UP) -> rightRegion
+            Pair(Direction.RIGHT, Direction.DOWN) -> rightRegion
             else -> defaultRegion
         }
 

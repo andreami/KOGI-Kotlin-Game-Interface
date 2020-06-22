@@ -12,18 +12,18 @@ import com.mygdx.game.ecs.system.*
 import com.mygdx.game.screen.FirstScreen
 import com.mygdx.game.screen.GameScreen
 import ktx.app.KtxGame
+import ktx.async.KtxAsync
 import ktx.log.debug
 import ktx.log.logger
 
 private val LOG = logger<MyKtxGame>()
-const val V_WIDTH_PIXELS = 360
-const val V_HEIGHT_PIXELS = 640
-const val UNIT_SCALE = 1 / 8f
+const val V_WIDTH_PIXELS = 640
+const val V_HEIGHT_PIXELS = 480
 
 class MyKtxGame : KtxGame<GameScreen>() {
 
-    val playerAtlas by lazy { TextureAtlas(Gdx.files.internal("player.atlas")) }
-    val graphicAtlas by lazy { TextureAtlas(Gdx.files.internal("graphic.atlas")) }
+    private val playerAtlas by lazy { TextureAtlas(Gdx.files.internal("player.atlas")) }
+    private val graphicAtlas by lazy { TextureAtlas(Gdx.files.internal("graphic.atlas")) }
 
     val gameViewport = FitViewport(V_WIDTH_PIXELS.toFloat(), V_HEIGHT_PIXELS.toFloat())
     val batch: Batch by lazy { SpriteBatch() }
@@ -38,6 +38,7 @@ class MyKtxGame : KtxGame<GameScreen>() {
             ))
             addSystem(AnimationSystem(graphicAtlas))
             addSystem(RenderSystem(batch, gameViewport))
+            addSystem(CommunicaitonSystem())
             addSystem(RemoveSystem())
         }
     }
@@ -45,6 +46,7 @@ class MyKtxGame : KtxGame<GameScreen>() {
     override fun create() {
         Gdx.app.logLevel = LOG_DEBUG
         LOG.debug { "Create game instance" }
+        KtxAsync.initiate()
         addScreen(FirstScreen(this))
         setScreen<FirstScreen>()
     }
