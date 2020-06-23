@@ -26,7 +26,6 @@ class FirstScreen(game: MyKtxGame) : GameScreen(game) {
         }
         with<AnimationComponent> { type = AnimationType.IDLE }
         with<GraphicComponent>()
-        with<NetworkComponent>()
     }
 
 
