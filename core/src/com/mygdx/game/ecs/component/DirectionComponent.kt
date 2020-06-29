@@ -5,11 +5,11 @@ import com.badlogic.gdx.utils.Pool
 import ktx.ashley.mapperFor
 
 class DirectionComponent : Component, Pool.Poolable {
-    var direction = Pair(Direction.RIGHT, Direction.UP)
-    var lastDirection = Pair(Direction.RIGHT, Direction.UP)
+    var direction = Direction.RIGHT
+    var lastDirection = Direction.RIGHT
 
     override fun reset() {
-        direction = Pair(Direction.RIGHT, Direction.UP)
+        direction = Direction.RIGHT
     }
 
     companion object {
@@ -18,5 +18,5 @@ class DirectionComponent : Component, Pool.Poolable {
 }
 
 enum class Direction {
-    LEFT, RIGHT, UP, DOWN
+    LEFT, RIGHT
 }

@@ -5,8 +5,8 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.EntityListener
 import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.graphics.g2d.TextureRegion
-import com.mygdx.game.ecs.component.DirectionComponent
 import com.mygdx.game.ecs.component.Direction
+import com.mygdx.game.ecs.component.DirectionComponent
 import com.mygdx.game.ecs.component.GraphicComponent
 import com.mygdx.game.ecs.component.PlayerComponent
 import ktx.ashley.allOf
@@ -47,11 +47,8 @@ class PlayerAnimationSystem(
 
         facing.lastDirection = facing.direction
         val region = when (facing.direction) {
-            Pair(Direction.LEFT, Direction.DOWN) -> leftRegion
-            Pair(Direction.LEFT, Direction.UP) -> leftRegion
-            Pair(Direction.RIGHT, Direction.UP) -> rightRegion
-            Pair(Direction.RIGHT, Direction.DOWN) -> rightRegion
-            else -> defaultRegion
+            Direction.LEFT -> leftRegion
+            Direction.RIGHT -> rightRegion
         }
 
         graphic.setSpriteRegion(region)
